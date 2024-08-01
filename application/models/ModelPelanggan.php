@@ -8,7 +8,6 @@ class ModelPelanggan extends CI_Model
         return $this->db->get($this->table);
     }
 
-
     public function tambahPelanggan($data)
     {
         return $this->db->insert('pelanggan', $data);

@@ -12,43 +12,59 @@
         </div>
 
         <div class="page-header mb-2">
-            <a href="<?= base_url('admin/tambah_pelanggan') ?>" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-user-plus fa-sm text-white-50"></i> Tambah Data Pelanggan</a>
+            <a href="<?= base_url('admin/tambah_pelanggan') ?>"
+                class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i
+                    class="fas fa-user-plus fa-sm text-white-50"></i> Tambah Data Pelanggan</a>
+        </div>
+
+        <div class="page-header mb-2">
+            <?= $this->session->flashdata('message') ?>
         </div>
 
         <!-- Content Row -->
         <div class="row">
 
             <div class="table-responsive table-bordered col-sm-10 ml-auto mr-auto mt-2 text-center">
-                <span class="mt-3 fas fa-users text-primary mt-2"> Data Pelanggan Listrik</span>
+                <h4 class="mt-3 text-primary"> <i> Data Pelanggan Listrik </i> </h4>
                 <table class="table mt-3">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>No</th>
                             <th>ID Pelanggan</th>
                             <th>Username</th>
                             <th>Nomor Kwh</th>
                             <th>Nama</th>
                             <th>Alamat</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($pelanggan)) { ?>
-                            <?php
+                        <?php
                             $i = 1;
                             foreach ($pelanggan as $a) { ?>
-                                <tr>
-                                    <td><?= $i++; ?></td>
-                                    <td><?= htmlspecialchars($a['id_pelanggan']); ?></td>
-                                    <td><?= htmlspecialchars($a['username']); ?></td>
-                                    <td><?= htmlspecialchars($a['nomor_kwh']); ?></td>
-                                    <td><?= htmlspecialchars($a['nama_pelanggan']); ?></td>
-                                    <td><?= htmlspecialchars($a['alamat']); ?></td>
-                                </tr>
-                            <?php } ?>
+                        <tr>
+                            <td><?= $i++; ?></td>
+                            <td><?= htmlspecialchars($a['id_pelanggan']); ?></td>
+                            <td><?= htmlspecialchars($a['username']); ?></td>
+                            <td><?= htmlspecialchars($a['nomor_kwh']); ?></td>
+                            <td><?= htmlspecialchars($a['nama_pelanggan']); ?></td>
+                            <td><?= htmlspecialchars($a['alamat']); ?></td>
+                            <td>
+                                <a href="<?= base_url(); ?>" class="btn btn-warning btn-sm">
+                                    <i style="color: #000;" class="fas fa-fw fa-pencil"></i>
+                                </a>
+                                <a href="<?= base_url('admin/hapus_pelanggan/' . $a['id_pelanggan']); ?>"
+                                    class="btn btn-danger btn-sm">
+                                    <i style="color: #000;" class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php } ?>
                         <?php } else { ?>
-                            <tr>
-                                <td colspan="6">Tidak ada data ditemukan.</td>
-                            </tr>
+                        <tr>
+                            <td colspan="6">Tidak ada data ditemukan.</td>
+                        </tr>
                         <?php } ?>
                     </tbody>
                 </table>

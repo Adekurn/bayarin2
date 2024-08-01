@@ -79,10 +79,23 @@ class Admin extends CI_Controller
                 'id_tarif'           => htmlspecialchars($this->input->post('idtarif')),
             ];
 
-            $this->load->model('ModelPelanggan');
             $this->ModelPelanggan->tambahPelanggan($dataPelanggan);
 
             $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-success" role="alert">Pelanggan Berhasil Ditambahkan</div>');
+            redirect('admin/layanan');
+        }
+    }
+
+    public function hapus_pelanggan($id)
+    {
+        $pelanggan = $this->db->get_where('pelanggan', ['id_pelanggan' => $id])->row_array();
+
+        if ($pelanggan) {
+            $this->db->delete('pelanggan', ['id_pelanggan' => $id]);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Pelanggan berhasil dihapus</div>');
+            redirect('admin/layanan');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Pelanggan gagal dihapus</div>');
             redirect('admin/layanan');
         }
     }
