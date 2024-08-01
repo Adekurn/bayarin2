@@ -19,6 +19,8 @@ class Profil extends CI_Controller
             'is_active' => 1
         ))->row_array();
 
+        // Mengatur validasi form
+        $this->form_validation->set_rules('nama', 'Nama Lengkap', 'required|trim');
         if ($this->input->post('username') != $get['username']) {
             $this->form_validation->set_rules('username', 'Username', array(
                 'is_unique' => 'This username has already registered!'
@@ -29,18 +31,13 @@ class Profil extends CI_Controller
         if ($this->form_validation->run() == false) {
             // Menampilkan halaman profile
             $data = array(
-                //'title' => 'My Profile',
-                // 'css'   => array('custom'),
-                // 'js'    => array('js/sweetalert.min', 'js/profile'),
-                //'notif' => notification('S', false),
-                'user'  => $this->db->get_where('pelanggan', array('username' => $this->session->userdata('username'), 'is_active' => 1))->row_array()
+                'user'  => $get
             );
             //action_log($this->session->userdata('username'), 'user', 'View Profile', 'View Profile Successfully');
             //pre($data['user']);
-            $this->load->view('template/Admin_header', $data);
-            $this->load->view('template/Admin_sidebar', $data);
-            $this->load->view('template/profile');
-            $this->load->view('template/Admin_footer');
+            $this->load->view('pelanggan/pelanggan_header', $data);
+            $this->load->view('pelanggan/profil', $data);
+            $this->load->view('pelanggan/pelanggan_footer');
         } else {
             // Ketika klik save profile button
             // Cek jika foto sudah ada maka save profile seperti biasa

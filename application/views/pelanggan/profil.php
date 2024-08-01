@@ -20,26 +20,26 @@
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <small class="text-primary font-weight-bold">Nama Lengkap</small>
-                                <input type="text" class="form-control form-control-user" name="nama" placeholder="Nama Lengkap" value="<?php echo $user['nama_pelanggan']; ?>">
+                                <input type="text" class="form-control form-control-user" name="nama" placeholder="Nama Lengkap" value="<?php echo isset($user['nama_pelanggan']); ?>">
                                 <?php echo form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="col-sm-6">
                                 <small class="text-primary font-weight-bold">Username</small>
-                                <input type="text" class="form-control form-control-user" name="username" placeholder="username" value="<?php echo $user['username']; ?>">
+                                <input type="text" class="form-control form-control-user" name="username" placeholder="username" value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>">
                                 <?php echo form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <small class="text-primary font-weight-bold">Password</small>
-                                <input type="text" class="form-control form-control-user" name="password" placeholder="Password" value="<?php echo $user['password_tidak_eknkripsi']; ?>">
+                                <input type="text" class="form-control form-control-user" name="password" placeholder="Password" value="<?php echo isset($user['password']); ?>">
                                 <?php echo form_error('password_tidak_eknkripsi', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <small class="text-primary font-weight-bold">Profile Picture</small>
-                                <input type="file" class="file" id="file" name="image" value="<?php echo $user['image']; ?>" onchange="return fileValidation()">
+                                <input type="file" class="file" id="file" name="image" value="<?php echo isset($user['image']); ?>" onchange="return fileValidation()">
                                 <small class="text-warning"><i class="fas fa-exclamation-triangle fa-fw"></i> File maximum 2MB</small> <br>
                                 <?php if (isset($error)) {
                                     echo $error;
@@ -69,7 +69,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div id="imagePreview">
-                        <img width="200" class="img-responsive" src="<?php echo base_url() . 'images/profile/' . $user['image']; ?>" />
+                        <img width="200" class="img-responsive" src="<?php echo base_url() . 'images/profile/' . (isset($user['image']) ? $user['image'] : 'default.jpg'); ?>" />
                     </div>
                     <hr>
                     <small style="font-style: italic;">
