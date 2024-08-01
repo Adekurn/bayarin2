@@ -7,9 +7,24 @@ class ModelPelanggan extends CI_Model
     {
         return $this->db->get($this->table);
     }
+<<<<<<< Updated upstream
 
     public function tambahPelanggan($data)
     {
         return $this->db->insert('pelanggan', $data);
+=======
+    public function simpanData($data = null)
+    {
+        $this->db->insert('pelanggan', $data);
+    }
+    public function cekData($where = null)
+    {
+        return $this->db->get_where('pelanggan', $where)->row_array();
+        //$this->db->last_query();
+    }
+    public function getUserWhere($where = null)
+    {
+        return $this->db->get_where('pelanggan', $where);
+>>>>>>> Stashed changes
     }
 }

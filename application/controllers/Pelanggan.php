@@ -117,4 +117,14 @@ class Pelanggan extends CI_Controller
         $this->load->view('pelanggan/dashboard', $data);
         $this->load->view('pelanggan/pelanggan_footer');
     }
+
+    public function profil()
+    {
+        $data = [
+            'judul' => 'Profil'
+        ];
+        $this->load->view('pelanggan/pelanggan_header', $data);
+        $this->load->view('pelanggan/profil', $data);
+        $this->load->view('pelanggan/pelanggan_footer');
+    }
 }
