@@ -9,6 +9,7 @@ class Admin extends CI_Controller
         $this->load->model('ModelAdmin');
         $this->load->model('ModelPelanggan');
         // $this->load->model('ModelPemesanan');
+        $this->load->helper('string');
     }
     public function index()
     {
@@ -39,5 +40,50 @@ class Admin extends CI_Controller
         // $this->load->view('template/admin/admin_topbar', $data);
         $this->load->view('template/admin/layanan', $data);
         $this->load->view('template/admin/admin_footer');
+    }
+
+    public function tambah_pelanggan()
+    {
+        $this->form_validation->set_rules('nama', 'Nama', 'required', [
+            'required' => 'Masukkan nama pelanggan dengan benar'
+        ]);
+
+        $this->form_validation->set_rules('username', 'Username', 'required|trim', [
+            'required' => 'Masukkan username pelanggan dengan benar',
+        ]);
+
+        $this->form_validation->set_rules('password', 'Password', 'required', [
+            'required' => 'Masukkan password pelanggan dengan benar',
+        ]);
+
+        $this->form_validation->set_rules('alamat', 'Alamat', 'required', [
+            'required' => 'Masukkan alamat pelanggan dengan benar',
+        ]);
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = [
+                'judul' => 'Tambah Pelanggan'
+            ];
+
+            $this->load->view('template/admin/admin_header', $data);
+            $this->load->view('template/admin/tambah_pelanggan', $data);
+            $this->load->view('template/admin/admin_footer');
+        } else {
+            $dataPelanggan = [
+                'id_pelanggan'       => random_string('basic', 16),
+                'username'           => htmlspecialchars($this->input->post('username')),
+                'password'           => password_hash($this->input->post('password'), PASSWORD_DEFAULT),
+                'nomor_kwh'          => random_string('basic', 16),
+                'nama_pelanggan'     => htmlspecialchars($this->input->post('nama')),
+                'alamat'             => htmlspecialchars($this->input->post('alamat')),
+                'id_tarif'           => htmlspecialchars($this->input->post('idtarif')),
+            ];
+
+            $this->load->model('ModelPelanggan');
+            $this->ModelPelanggan->tambahPelanggan($dataPelanggan);
+
+            $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-success" role="alert">Pelanggan Berhasil Ditambahkan</div>');
+            redirect('admin/layanan');
+        }
     }
 }
