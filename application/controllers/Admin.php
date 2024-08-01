@@ -7,6 +7,7 @@ class Admin extends CI_Controller
         parent::__construct();
         // check_login();
         $this->load->model('ModelAdmin');
+        $this->load->model('ModelPelanggan');
         // $this->load->model('ModelPemesanan');
     }
     public function index()
@@ -27,7 +28,8 @@ class Admin extends CI_Controller
     {
 
         $data['judul'] = 'Admin';
-        $data['pelanggan'] = $this->ModelAdmin->getpelanggan()->result_array();
+        $data['pelanggan'] = $this->ModelPelanggan->getpelanggan()->result_array();
+        // pre($data);
         // $data['anggota'] = $this->ModelAdmin->getUserLimit()->result_array();
         // $data['buku'] = $this->ModelPemesanan->getBuku()->result_array();
         // $data['jumlah_pemesan'] = $this->db->count_all('buku');

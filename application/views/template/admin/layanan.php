@@ -17,7 +17,7 @@
             <div class="table-responsive table-bordered col-sm-10 ml-auto mr-auto mt-2">
                 <div class="page-header">
                     <span class="fas fa-users text-primary mt-2"> Data Pelanggan Listrik</span>
-                    <a class="text-danger" href="<?= base_url('pelanggan'); ?>"><i class="fas fa-search mt-2 float-right"> Tampilkan</i></a>
+                    <a class="text-danger" href="<?= base_url('layanan'); ?>"><i class="fas fa-search mt-2 float-right"> Tampilkan</i></a>
                     <a href="<?= base_url('Admin/tambahuser')  ?>" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Tambah Data Pelanggan</a>
                 </div>
                 <table class="table mt-3">
