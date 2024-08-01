@@ -30,8 +30,8 @@ class ModelLayanan extends CI_Model
             return [];
         }
 
-        $this->db->where('id_pelanggan', $id);
+        $this->db->where('id_penggunaan', $id);
         $query = $this->db->get('penggunaan');
-        return $query->result_array();
+        return $query->row_array();
     }
 }

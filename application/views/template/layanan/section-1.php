@@ -25,22 +25,20 @@
             <p class="card-text">Awas penipuan saat transaksi</p>
         </div>
         <div class="container mt-3">
-            <?php foreach ($penggunaan as $a) { ?>
             <div class="card mb-3" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">ID Pelanggan: <?= htmlspecialchars($a['id_penggunaan']); ?></h5>
+                    <h5 class="card-title">ID Pelanggan: <?= htmlspecialchars($penggunaan['id_penggunaan']); ?></h5>
                     <p class="card-text">
-                        Bulan: <?= htmlspecialchars($a['bulan']); ?><br>
-                        Tahun: <?= htmlspecialchars($a['tahun']); ?><br>
-                        Meter Awal: <?= htmlspecialchars($a['meter_awal']); ?><br>
-                        Meter Akhir: <?= htmlspecialchars($a['meter_akhir']); ?>
+                        Bulan: <?= htmlspecialchars($penggunaan['bulan']); ?><br>
+                        Tahun: <?= htmlspecialchars($penggunaan['tahun']); ?><br>
+                        Meter Awal: <?= htmlspecialchars($penggunaan['meter_awal']); ?><br>
+                        Meter Akhir: <?= htmlspecialchars($penggunaan['meter_akhir']); ?>
                     </p>
                 </div>
                 <div class="card-body">
                     <a href="<?= base_url('penggunaan'); ?>" class="card-link">Details</a>
                 </div>
             </div>
-            <?php } ?>
         </div>
     </div>
     <?php } elseif (!empty($id) && empty($penggunaan)) { ?>

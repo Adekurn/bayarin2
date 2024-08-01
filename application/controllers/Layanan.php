@@ -63,7 +63,7 @@ class Layanan extends CI_Controller
     }
     public function serch()
     {
-        $data['penggunaan'] = [];
+        $data['penggunaan'] = null;
         $data['id'] = '';
         $data['judul'] = 'Halaman Pencarian';
 
