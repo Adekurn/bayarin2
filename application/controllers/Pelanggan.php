@@ -121,8 +121,10 @@ class Pelanggan extends CI_Controller
     public function profil()
     {
         $data = [
-            'judul' => 'Profil'
+            'judul' => 'Profil',
+            'pelanggan'  => $this->db->get_where('pelanggan', ['username' => $this->session->userdata('username')])->row_array()
         ];
+
         $this->load->view('pelanggan/pelanggan_header', $data);
         $this->load->view('pelanggan/profil', $data);
         $this->load->view('pelanggan/pelanggan_footer');
