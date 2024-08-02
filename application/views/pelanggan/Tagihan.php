@@ -1,7 +1,8 @@
 <div class="card" style="width: 100%;">
     <div class="card-body">
         <h5 class="card-title">Data Tagihan</h5>
-        <p class="card-text">Pastikan melakukan pembayaran dengan benar, jangan sampai anda tertipu oleh pihak-pihak palsu. Harap melakukan pembayaran melalui konter PLN langsung atau melalui web ini.</p>
+        <p class="card-text">Pastikan melakukan pembayaran dengan benar, jangan sampai anda tertipu oleh pihak-pihak
+            palsu. Harap melakukan pembayaran melalui konter PLN langsung atau melalui web ini.</p>
     </div>
     <div class="container mt-3">
         <?php if (!empty($tagihan)) : ?>
@@ -15,7 +16,7 @@
                         <th scope="col">Jumlah Meter</th>
                         <th scope="col">Status</th>
                         <th scope="col">ID Pelanggan</th>
-                        <th scope="col">Details</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,10 +26,11 @@
                             <td><?= htmlspecialchars($item['id_penggunaan']); ?></td>
                             <td><?= htmlspecialchars($item['bulan']); ?></td>
                             <td><?= htmlspecialchars($item['tahun']); ?></td>
-                            <td><?= htmlspecialchars($item['meter_awal']) . ' - ' . htmlspecialchars($item['meter_akhir']); ?></td>
+                            <td><?= htmlspecialchars($item['meter_awal']) . ' - ' . htmlspecialchars($item['meter_akhir']); ?>
+                            </td>
                             <td><?= htmlspecialchars($item['status']); ?></td>
                             <td><?= htmlspecialchars($item['id_pelanggan']); ?></td>
-                            <td><a href="<?= base_url('Layanan/tagihan/' . $item['id_pelanggan']); ?>" class="btn btn-primary">Pembayaran</a></td>
+                            <td><a href="<?= base_url('layanan/bayar/' . $item['id_tagihan']); ?>" class="btn btn-primary">Lanjut Bayar</a></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>

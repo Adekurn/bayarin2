@@ -33,6 +33,11 @@
             <i class="fa fa-fw fa-scroll"></i>
             <span>Manajemen Tagihan</span></a>
     </li>
+    <li class="nav-item active">
+        <a class="nav-link pb-0" href="<?= base_url('admin/tagihan'); ?>">
+            <i class="fa fa-fw fa-money-bill"></i>
+            <span>Manajemen Pembayaran</span></a>
+    </li>
     <!-- Nav Item - Utilities Collapse Menu -->
     <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">

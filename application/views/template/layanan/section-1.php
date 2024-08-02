@@ -1,5 +1,5 @@
-<div class='conta'>
-    <div class='tab-box'>
+<div class='container'>
+    <div class='tab-box mb-3'>
         <input hidden type="radio" name="tab-name" id="tab-1" checked>
         <button type="button" class="btn" style="background-color: black; color: white;">
             <label class="tab-control" for="tab-1">Listrik Pascabayar</label>

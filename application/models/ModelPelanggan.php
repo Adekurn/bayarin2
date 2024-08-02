@@ -47,13 +47,14 @@ class ModelPelanggan extends CI_Model
         $this->db->join('penggunaan', 'penggunaan.id_pelanggan = pelanggan.id_pelanggan');
         $this->db->where('pelanggan.id_pelanggan', $id);
         $query = $this->db->get();
-        return $query->row_array(); // Mengembalikan satu baris hasil
+        return $query->row_array();
     }
     public function getTagihanByPelanggan($id_pelanggan)
     {
-        $this->db->select('tagihan.*, penggunaan.meter_awal, penggunaan.meter_akhir');
+        $this->db->select('tagihan.*, penggunaan.meter_awal, penggunaan.meter_akhir, pelanggan.nama_pelanggan');
         $this->db->from('tagihan');
         $this->db->join('penggunaan', 'penggunaan.id_penggunaan = tagihan.id_penggunaan');
+        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = tagihan.id_pelanggan');
         $this->db->where('tagihan.id_pelanggan', $id_pelanggan);
         $query = $this->db->get();
         return $query->result_array();
