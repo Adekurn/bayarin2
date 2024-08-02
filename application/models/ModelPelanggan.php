@@ -31,4 +31,17 @@ class ModelPelanggan extends CI_Model
     {
         return $this->db->get_where('pelanggan', $where);
     }
+    public function getpelang($id = null)
+    {
+        if (empty($id)) {
+            return [];
+        }
+
+        $this->db->select('pelanggan.id_pelanggan, pelanggan.nama_pelanggan, penggunaan.bulan, penggunaan.tahun, penggunaan.meter_awal, penggunaan.meter_akhir');
+        $this->db->from('pelanggan');
+        $this->db->join('penggunaan', 'penggunaan.id_pelanggan = pelanggan.id_pelanggan');
+        $this->db->where('pelanggan.id_pelanggan', $id);
+        $query = $this->db->get();
+        return $query->row_array(); // Mengembalikan satu baris hasil
+    }
 }

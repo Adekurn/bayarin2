@@ -7,6 +7,7 @@ class Layanan extends CI_Controller
         parent::__construct();
         $this->load->model('ModelLayanan');
         $this->load->model('ModelTagihan');
+        $this->load->model('ModelPelanggan');
     }
 
     public function index()
@@ -14,7 +15,7 @@ class Layanan extends CI_Controller
         $data = [
             'judul' => 'Layanan'
         ];
-        $data['penggunaan'] = $this->ModelLayanan->getpenggunaan()->result_array();
+        $data['pelanggan'] = $this->ModelPelanggan->getpelanggan()->result_array();
 
 
         $this->load->view('pelanggan/pelanggan_header', $data);
@@ -62,13 +63,13 @@ class Layanan extends CI_Controller
     }
     public function serch()
     {
-        $data['penggunaan'] = null;
+        $data['pelanggan'] = [];
         $data['id'] = '';
         $data['judul'] = 'Halaman Pencarian';
 
         if ($this->input->post('submit')) {
             $data['id'] = $this->input->post('id');
-            $data['penggunaan'] = $this->ModelLayanan->getdata($data['id']);
+            $data['pelanggan'] = $this->ModelPelanggan->getpelang($data['id']);
         }
 
         $this->load->view('pelanggan/pelanggan_header', $data);

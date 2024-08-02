@@ -17,30 +17,34 @@
         </div>
     </div>
 
-    <?php if (!empty($id) && !empty($penggunaan)) { ?>
-        <div class="card" id="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Data Penggunaan Listrik</h5>
-                <p class="card-text">Awas penipuan saat transaksi</p>
-            </div>
-            <div class="container mt-3">
-                <div class="card mb-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">ID Pelanggan: <?= htmlspecialchars($penggunaan['id_penggunaan']); ?></h5>
-                        <p class="card-text">
-                            Bulan: <?= htmlspecialchars($penggunaan['bulan']); ?><br>
-                            Tahun: <?= htmlspecialchars($penggunaan['tahun']); ?><br>
-                            Meter Awal: <?= htmlspecialchars($penggunaan['meter_awal']); ?><br>
-                            Meter Akhir: <?= htmlspecialchars($penggunaan['meter_akhir']); ?>
-                        </p>
-                    </div>
-                    <div class="card-body">
-                        <a href="<?= base_url('Layanan/tagihan'); ?>" class="card-link">Details</a>
+    <div class="container mt-3">
+        <?php if (!empty($id) && !empty($pelanggan)) { ?>
+            <div class="card" id="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Data Penggunaan Listrik</h5>
+                    <p class="card-text">Awas penipuan saat transaksi</p>
+                </div>
+                <div class="container mt-3">
+                    <div class="card mb-3" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">ID Pelanggan: <?= htmlspecialchars($pelanggan['id_pelanggan']); ?></h5>
+                            <p class="card-text">
+                                Nama Pelanggan: <?= htmlspecialchars($pelanggan['nama_pelanggan']); ?><br>
+                                Bulan: <?= htmlspecialchars($pelanggan['bulan']); ?><br>
+                                Tahun: <?= htmlspecialchars($pelanggan['tahun']); ?><br>
+                                Meter Awal: <?= htmlspecialchars($pelanggan['meter_awal']); ?><br>
+                                Meter Akhir: <?= htmlspecialchars($pelanggan['meter_akhir']); ?>
+                            </p>
+                        </div>
+                        <div class="card-body">
+                            <a href="<?= base_url('Layanan/tagihan'); ?>" class="card-link">Details</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    <?php } elseif (!empty($id) && empty($penggunaan)) { ?>
-        <p>No data found for ID: <?= htmlspecialchars($id); ?>.</p>
-    <?php } ?>
+        <?php } elseif (!empty($id) && empty($pelanggan)) { ?>
+            <p>No data found for ID: <?= htmlspecialchars($id); ?>.</p>
+        <?php } ?>
+    </div>
+
 </div>
