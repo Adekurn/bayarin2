@@ -77,15 +77,16 @@ class Layanan extends CI_Controller
         $this->load->view('template/layanan/section-1', $data);
         $this->load->view('pelanggan/pelanggan_footer', $data);
     }
-    public function tagihan()
+    public function tagihan($id_pelanggan)
     {
-        $data['judul'] = 'Halaman Tagihan';
-        $data['tagihan'] = $this->ModelTagihan->gettagihan()->result_array();
-        $data['penggunaan'] = $this->ModelLayanan->getpenggunaan()->result_array();
+        $data['tagihan'] = $this->ModelPelanggan->getTagihanByPelanggan($id_pelanggan);
         // pre($data);
+        $data['judul'] = 'Detail Tagihan';
+
+        // pre($data['tagihan']);
         $this->load->view('pelanggan/pelanggan_header', $data);
         $this->load->view('pelanggan/pelanggan_topbar', $data);
-        $this->load->view('pelanggan/Tagihan', $data);
+        $this->load->view('pelanggan/tagihan', $data);
         $this->load->view('pelanggan/pelanggan_footer', $data);
     }
 }

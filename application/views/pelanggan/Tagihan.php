@@ -1,30 +1,40 @@
-<div class="card" style="width: 18rem;">
-
+<div class="card" style="width: 100%;">
     <div class="card-body">
         <h5 class="card-title">Data Tagihan</h5>
-        <p class="card-text">Pastikan melakukan pembayaran dengan benar jangan sampai anda tertipu oleh pihak-pihak Palsu, Harap melakukan pembayaran Melalui konter PLN langsung atau malalui web ini </p>
+        <p class="card-text">Pastikan melakukan pembayaran dengan benar, jangan sampai anda tertipu oleh pihak-pihak palsu. Harap melakukan pembayaran melalui konter PLN langsung atau melalui web ini.</p>
     </div>
     <div class="container mt-3">
-        <?php foreach ($tagihan as $item) : ?>
-            <?php foreach ($penggunaan as $kor) : ?>
-                <div class="card mb-3" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">ID Tagihan: <?= $item['id_tagihan']; ?></h5>
-                        <p class="card-text">
-                            Id penggunaan :<?= $item['id_penggunaan']; ?><br>
-                            Bulan: <?= $item['bulan']; ?><br>
-                            Tahun: <?= $item['tahun']; ?><br>
-                            jumlah Meter : <?= $kor['meter_awal'] . '-' . $kor['meter_akhir']; ?><br>
-                            status : <?= $item['status']; ?><br>
-                            id pelanggan : <?= $item['id_pelanggan']; ?><br>
-                        </p>
-                    </div>
-                    <div class="card-body">
-                        <a href="<?= base_url('Layanan/tagihan'); ?>" class="card-link">Details</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endforeach; ?>
+        <?php if (!empty($tagihan)) : ?>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID Tagihan</th>
+                        <th scope="col">ID Penggunaan</th>
+                        <th scope="col">Bulan</th>
+                        <th scope="col">Tahun</th>
+                        <th scope="col">Jumlah Meter</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">ID Pelanggan</th>
+                        <th scope="col">Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($tagihan as $item) : ?>
+                        <tr>
+                            <td><?= htmlspecialchars($item['id_tagihan']); ?></td>
+                            <td><?= htmlspecialchars($item['id_penggunaan']); ?></td>
+                            <td><?= htmlspecialchars($item['bulan']); ?></td>
+                            <td><?= htmlspecialchars($item['tahun']); ?></td>
+                            <td><?= htmlspecialchars($item['meter_awal']) . ' - ' . htmlspecialchars($item['meter_akhir']); ?></td>
+                            <td><?= htmlspecialchars($item['status']); ?></td>
+                            <td><?= htmlspecialchars($item['id_pelanggan']); ?></td>
+                            <td><a href="<?= base_url('Layanan/tagihan/' . $item['id_pelanggan']); ?>" class="btn btn-primary">Pembayaran</a></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>No data found for this customer.</p>
+        <?php endif; ?>
     </div>
-
 </div>

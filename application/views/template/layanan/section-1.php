@@ -37,7 +37,7 @@
                             </p>
                         </div>
                         <div class="card-body">
-                            <a href="<?= base_url('Layanan/tagihan'); ?>" class="card-link">Details</a>
+                            <a href="<?= base_url('Layanan/tagihan/' . $pelanggan['id_pelanggan']); ?>" class="card-link">Details</a>
                         </div>
                     </div>
                 </div>
@@ -46,5 +46,6 @@
             <p>No data found for ID: <?= htmlspecialchars($id); ?>.</p>
         <?php } ?>
     </div>
+
 
 </div>
