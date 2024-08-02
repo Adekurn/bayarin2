@@ -99,4 +99,12 @@ class Admin extends CI_Controller
             redirect('admin/layanan');
         }
     }
+    public function tagihan()
+    {
+        $data = ['Buat Tagihan'];
+
+        $this->load->view('template/admin/admin_header', $data);
+        $this->load->view('template/admin/buat_tagihan', $data);
+        $this->load->view('template/admin/admin_footer');
+    }
 }

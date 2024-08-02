@@ -24,6 +24,12 @@
             <i class="fa fa-fw fa-users"></i>
             <span>List Pelanggan</span></a>
     </li>
+    <li class="nav-item active">
+        <a class="nav-link pb-0" href="<?=
+                                        base_url('Admin/'); ?>">
+            <i class="fa fa-fw fa-users"></i>
+            <span>Tagihan</span></a>
+    </li>
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
