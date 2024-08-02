@@ -110,7 +110,8 @@ class Pelanggan extends CI_Controller
     public function dashboard()
     {
         $data = [
-            'judul' => 'Dashboard Pelanggan'
+            'judul' => 'Dashboard Pelanggan',
+            'pelanggan'  => $this->db->get_where('pelanggan', ['username' => $this->session->userdata('username')])->row_array()
         ];
 
         $this->load->view('pelanggan/pelanggan_header', $data);

@@ -16,54 +16,21 @@
                 </div>
                 <?php echo $this->session->userdata('message'); ?>
                 <div class="card-body">
-                    <form class="user" method="post" enctype="multipart/form-data"
-                        action="<?php echo base_url() . 'profile'; ?>">
+                    <form class="user" method="post" enctype="multipart/form-data" action="<?php echo base_url() . 'profile'; ?>">
                         <div class="form-group row">
                             <div class="col-sm-6 mb-3 mb-sm-0">
                                 <small class="text-primary font-weight-bold">Nama Lengkap</small>
-                                <input type="text" class="form-control form-control-user" name="nama"
-                                    placeholder="Nama Lengkap" value="<?= $pelanggan['nama_pelanggan']; ?>">
+                                <input type="text" class="form-control form-control-user" name="nama" placeholder="Nama Lengkap" value="<?= $pelanggan['nama_pelanggan']; ?>">
                                 <?php echo form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="col-sm-6">
                                 <small class="text-primary font-weight-bold">Username</small>
-                                <input type="text" class="form-control form-control-user" name="username"
-                                    placeholder="username"
-                                    value="<?php echo isset($user['username']) ? $user['username'] : ''; ?>">
+                                <input type="text" class="form-control form-control-user" name="username" placeholder="username" value="<?= $pelanggan['username']; ?>">
                                 <?php echo form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <small class="text-primary font-weight-bold">Password</small>
-                                <input type="text" class="form-control form-control-user" name="password"
-                                    placeholder="Password" value="<?php echo isset($user['password']); ?>">
-                                <?php echo form_error('password_tidak_eknkripsi', '<small class="text-danger pl-3">', '</small>'); ?>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-6 mb-3 mb-sm-0">
-                                <small class="text-primary font-weight-bold">Profile Picture</small>
-                                <input type="file" class="file" id="file" name="image"
-                                    value="<?php echo isset($user['image']); ?>" onchange="return fileValidation()">
-                                <small class="text-warning"><i class="fas fa-exclamation-triangle fa-fw"></i> File
-                                    maximum 2MB</small> <br>
-                                <?php if (isset($error)) {
-                                    echo $error;
-                                } ?>
-                            </div>
-                            <div class="col-sm-6 mt-3">
-                                <small class="text-primary font-weight-bold"></small>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Save Profile</button>
                             </div>
                         </div>
                     </form>
                     <hr>
-                    <small style="font-style: italic;">
-                        “Tiga hal yang membawa pada jurang kebinasaan: (1) tamak lagi kikir, (2) mengikuti hawa nafsu
-                        (yang selalu mengajak pada kejelekan), dan ujub (takjub pada diri sendiri).” (HR. Abdur Rozaq
-                        11: 304. Syaikh Al Albani mengatakan bahwa hadits ini hasan. Lihat Shahihul Jaami’ 3039).
-                    </small>
                 </div>
             </div>
         </div>
@@ -78,8 +45,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <div id="imagePreview">
-                        <img width="200" class="img-responsive"
-                            src="<?php echo base_url() . 'images/profile/' . (isset($user['image']) ? $user['image'] : 'default.jpg'); ?>" />
+                        <img width="200" class="img-responsive" src="<?php echo base_url() . 'images/profile/' . (isset($user['image']) ? $user['image'] : 'default.jpg'); ?>" />
                     </div>
                     <hr>
                     <small style="font-style: italic;">

@@ -16,11 +16,10 @@ class Layanan extends CI_Controller
         $data['penggunaan'] = $this->ModelLayanan->getpenggunaan()->result_array();
 
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/navbar', $data);
-        $this->load->view('template/layanan/index', $data);
+        $this->load->view('pelanggan/pelanggan_header', $data);
+        $this->load->view('pelanggan/pelanggan_topbar', $data);
         $this->load->view('template/layanan/section-1', $data);
-        $this->load->view('template/footer', $data);
+        $this->load->view('pelanggan/pelanggan_footer', $data);
     }
 
     public function inquiry()
@@ -38,7 +37,6 @@ class Layanan extends CI_Controller
             'hp'          => $_POST('id'),
             'ref_id'      => $ref_id,
             'sign'        => md5('085771522432' . '749669a17d2c55989oPJ' . $ref_id)
-
         ];
 
         $curl = curl_init();
@@ -72,10 +70,18 @@ class Layanan extends CI_Controller
             $data['penggunaan'] = $this->ModelLayanan->getdata($data['id']);
         }
 
-        $this->load->view('template/header', $data);
-        $this->load->view('template/navbar', $data);
-        $this->load->view('template/layanan/index', $data);
+        $this->load->view('pelanggan/pelanggan_header', $data);
+        $this->load->view('pelanggan/pelanggan_topbar', $data);
         $this->load->view('template/layanan/section-1', $data);
-        $this->load->view('template/footer', $data);
+        $this->load->view('pelanggan/pelanggan_footer', $data);
+    }
+    public function tagihan()
+    {
+        $data['judul'] = 'Halaman Tagihan';
+
+        $this->load->view('pelanggan/pelanggan_header', $data);
+        $this->load->view('pelanggan/pelanggan_topbar', $data);
+        $this->load->view('pelanggan/Tagihan', $data);
+        $this->load->view('pelanggan/pelanggan_footer', $data);
     }
 }
