@@ -6,6 +6,7 @@ class Layanan extends CI_Controller
     {
         parent::__construct();
         $this->load->model('ModelLayanan');
+        $this->load->model('ModelTagihan');
     }
 
     public function index()
@@ -78,7 +79,9 @@ class Layanan extends CI_Controller
     public function tagihan()
     {
         $data['judul'] = 'Halaman Tagihan';
-
+        $data['tagihan'] = $this->ModelTagihan->gettagihan()->result_array();
+        $data['penggunaan'] = $this->ModelLayanan->getpenggunaan()->result_array();
+        // pre($data);
         $this->load->view('pelanggan/pelanggan_header', $data);
         $this->load->view('pelanggan/pelanggan_topbar', $data);
         $this->load->view('pelanggan/Tagihan', $data);
