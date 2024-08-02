@@ -8,7 +8,7 @@
 
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-2">
-            <h1 class="h3 mb-0 text-gray-800">Pelanggan</h1>
+            <h1 class="h3 mb-0 text-gray-800"><?= $judul ?></h1>
         </div>
 
         <div class="page-header mb-2">
@@ -22,7 +22,7 @@
         <!-- Content Row -->
         <div class="row">
 
-            <div class="table-responsive table-bordered col-sm-10 ml-auto mr-auto mt-2 text-center">
+            <div class="table-responsive table-bordered col-sm-12 ml-auto mr-auto mt-2 text-center">
                 <h4 class="mt-3 text-primary"> <i> Data Pelanggan Listrik </i> </h4>
                 <table class="table mt-3">
                     <thead>
@@ -54,9 +54,6 @@
                                         </a>
                                         <a href="<?= base_url('admin/hapus_pelanggan/' . $a['id_pelanggan']); ?>" class="btn btn-danger btn-sm">
                                             <i style="color: #000;" class="fa-solid fa-trash"></i>
-                                        </a>
-                                        <a href="<?= base_url('admin/tagihan/' . $a['id_pelanggan']); ?>" class="btn btn-success btn-sm">
-                                            <i style="color: #000;" class="fa-solid fa-plus"></i>
                                         </a>
                                     </td>
                                 </tr>

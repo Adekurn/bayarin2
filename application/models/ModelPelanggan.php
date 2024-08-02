@@ -18,6 +18,11 @@ class ModelPelanggan extends CI_Model
         return $this->db->insert('tagihan', $data);
     }
 
+    public function tambahPenggunaan($data)
+    {
+        return $this->db->insert('penggunaan', $data);
+    }
+
     public function simpanData($data = null)
     {
         $this->db->insert('pelanggan', $data);

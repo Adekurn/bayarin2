@@ -19,19 +19,22 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item active">
-        <a class="nav-link pb-0" href="<?=
-                                        base_url('Admin/layanan'); ?>">
+        <a class="nav-link pb-0" href="<?= base_url('admin/layanan'); ?>">
             <i class="fa fa-fw fa-users"></i>
-            <span>List Pelanggan</span></a>
+            <span>Daftar Pelanggan</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link pb-0" href="<?=
-                                        base_url('Admin/'); ?>">
-            <i class="fa fa-fw fa-users"></i>
-            <span>Tagihan</span></a>
+        <a class="nav-link pb-0" href="<?= base_url('admin/penggunaan'); ?>">
+            <i class="fa fa-fw fa-file-circle-plus"></i>
+            <span>Manajemen Penggunaan</span></a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link pb-0" href="<?= base_url('admin/tagihan'); ?>">
+            <i class="fa fa-fw fa-scroll"></i>
+            <span>Manajemen Tagihan</span></a>
     </li>
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
             <span>Utilities</span>
@@ -45,10 +48,10 @@
                 <a class="collapse-item" href="utilities-other.html">Other</a>
             </div>
         </div>
-    </li>
+    </li> -->
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <!-- <hr class="sidebar-divider"> -->
 
 </ul>
 <!-- End of Sidebar -->

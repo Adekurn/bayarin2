@@ -27,8 +27,7 @@ class Admin extends CI_Controller
     }
     public function layanan()
     {
-
-        $data['judul'] = 'Admin';
+        $data['judul'] = 'Daftar Pelanggan';
         $data['pelanggan'] = $this->ModelPelanggan->getpelanggan()->result_array();
         // pre($data);
         // $data['anggota'] = $this->ModelAdmin->getUserLimit()->result_array();
@@ -36,8 +35,6 @@ class Admin extends CI_Controller
         // $data['jumlah_pemesan'] = $this->db->count_all('buku');
 
         $this->load->view('template/admin/admin_header', $data);
-        // $this->load->view('template/admin/admin_sidebar', $data);
-        // $this->load->view('template/admin/admin_topbar', $data);
         $this->load->view('template/admin/layanan', $data);
         $this->load->view('template/admin/admin_footer');
     }
@@ -99,7 +96,19 @@ class Admin extends CI_Controller
             redirect('admin/layanan');
         }
     }
-    public function tagihan($id = NULL)
+    public function tagihan()
+    {
+        $data = [
+            'judul' => 'Manajemen Tagihan',
+            'pelanggan' => $this->ModelPelanggan->getpelanggan()->result_array(),
+        ];
+
+        $this->load->view('template/admin/admin_header', $data);
+        $this->load->view('template/admin/manajemen_tagihan', $data);
+        $this->load->view('template/admin/admin_footer');
+    }
+
+    public function buat_tagihan($id = NULL)
     {
         $this->form_validation->set_rules('idpen', 'ID Penggunaan', 'required', [
             'required' => 'Harap pilih ID Penggunaan dengan benar'
@@ -110,12 +119,12 @@ class Admin extends CI_Controller
         ]);
 
         if ($this->form_validation->run() == FALSE) {
-            // Load data untuk form
             $penggunaan = $this->db->get_where('penggunaan', ['id_pelanggan' => $id])->result_array();
 
             $data = [
                 'judul' => 'Buat Tagihan',
                 'penggunaan' => $penggunaan,
+                'pelanggan' => $this->ModelPelanggan->getpelanggan()->result_array(),
                 'id_pelanggan' => $id,
             ];
 
@@ -137,10 +146,69 @@ class Admin extends CI_Controller
 
             if ($this->ModelPelanggan->tambahTagihan($dataTagihan)) {
                 $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-success" role="alert">Berhasil menambahkan tagihan pada pelanggan</div>');
-                redirect('admin/layanan');
+                redirect('admin/tagihan');
             } else {
                 $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-danger" role="alert">Gagal menambahkan tagihan pada pelanggan</div>');
                 redirect('admin/tagihan/' . $id);
+            }
+        }
+    }
+
+    public function penggunaan()
+    {
+        $data = [
+            'judul' => 'Manajemen Penggunaan',
+            'pelanggan' => $this->ModelPelanggan->getpelanggan()->result_array(),
+        ];
+
+        $this->load->view('template/admin/admin_header', $data);
+        $this->load->view('template/admin/manajemen_penggunaan', $data);
+        $this->load->view('template/admin/admin_footer');
+    }
+
+    public function tambah_penggunaan($id = NULL)
+    {
+        $this->form_validation->set_rules('bulan', 'Bulan', 'required', [
+            'required' => 'Harap masukkan bulan dengan benar'
+        ]);
+        $this->form_validation->set_rules('tahun', 'Tahun', 'required', [
+            'required' => 'Harap masukkan tahun dengan benar'
+        ]);
+        $this->form_validation->set_rules('mawal', 'Meter Awal', 'required', [
+            'required' => 'Harap masukkan no. meter awal dengan benar'
+        ]);
+        $this->form_validation->set_rules('makhir', 'Meter Akhir', 'required', [
+            'required' => 'Harap masukkan no. meter akhir dengan benar'
+        ]);
+
+        if ($this->form_validation->run() == FALSE) {
+            $data = [
+                'judul' => 'Tambah Penggunaan',
+                'pelanggan' => $this->ModelPelanggan->getpelanggan()->result_array(),
+                'id_pelanggan' => $id,
+            ];
+
+            $this->load->view('template/admin/admin_header', $data);
+            $this->load->view('template/admin/tambah_penggunaan', $data);
+            $this->load->view('template/admin/admin_footer');
+        } else {
+            $idpen = random_string('basic', 16);
+
+            $dataPenggunaan = [
+                'id_penggunaan' => $idpen,
+                'id_pelanggan'  => htmlspecialchars($this->input->post('idpel')),
+                'bulan'         => htmlspecialchars($this->input->post('bulan')),
+                'tahun'         => htmlspecialchars($this->input->post('tahun')),
+                'meter_awal'    => htmlspecialchars($this->input->post('mawal')),
+                'meter_akhir'   => htmlspecialchars($this->input->post('makhir')),
+            ];
+
+            if ($this->ModelPelanggan->tambahPenggunaan($dataPenggunaan)) {
+                $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-success" role="alert">Berhasil menambahkan penggunaan pada pelanggan</div>');
+                redirect('admin/penggunaan');
+            } else {
+                $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-danger" role="alert">Gagal menambahkan penggunaan pada pelanggan</div>');
+                redirect('admin/tambah_penggunaan/' . $id);
             }
         }
     }
