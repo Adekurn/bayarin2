@@ -55,7 +55,7 @@
                                         <a href="<?= base_url('admin/hapus_pelanggan/' . $a['id_pelanggan']); ?>" class="btn btn-danger btn-sm">
                                             <i style="color: #000;" class="fa-solid fa-trash"></i>
                                         </a>
-                                        <a href="<?= base_url('admin/tagihan'); ?>" class="btn btn-success btn-sm">
+                                        <a href="<?= base_url('admin/tagihan/' . $a['id_pelanggan']); ?>" class="btn btn-success btn-sm">
                                             <i style="color: #000;" class="fa-solid fa-plus"></i>
                                         </a>
                                     </td>

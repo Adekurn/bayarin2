@@ -99,12 +99,90 @@ class Admin extends CI_Controller
             redirect('admin/layanan');
         }
     }
-    public function tagihan()
+    public function tagihan($id = NULL)
     {
-        $data = ['Buat Tagihan'];
+        $this->form_validation->set_rules('idpen', 'ID Penggunaan', 'required', [
+            'required' => 'Harap pilih ID Penggunaan dengan benar'
+        ]);
 
-        $this->load->view('template/admin/admin_header', $data);
-        $this->load->view('template/admin/buat_tagihan', $data);
-        $this->load->view('template/admin/admin_footer');
+        $this->form_validation->set_rules('status', 'Status', 'required', [
+            'required' => 'Harap pilih status dengan benar'
+        ]);
+
+        if ($this->form_validation->run() == FALSE) {
+            // Load data untuk form
+            $penggunaan = $this->db->get_where('penggunaan', ['id_pelanggan' => $id])->result_array();
+
+            $data = [
+                'judul' => 'Buat Tagihan',
+                'penggunaan' => $penggunaan,
+                'id_pelanggan' => $id,
+            ];
+
+            $this->load->view('template/admin/admin_header', $data);
+            $this->load->view('template/admin/buat_tagihan', $data);
+            $this->load->view('template/admin/admin_footer');
+        } else {
+            $idTagih = random_string('basic', 16);
+
+            $dataTagihan = [
+                'id_tagihan' => $idTagih,
+                'id_penggunaan' => htmlspecialchars($this->input->post('idpen')),
+                'bulan' => htmlspecialchars($this->input->post('bulan')),
+                'tahun' => htmlspecialchars($this->input->post('tahun')),
+                'jumlah_meter' => htmlspecialchars($this->input->post('jumlah')),
+                'status' => htmlspecialchars($this->input->post('status')),
+                'id_pelanggan' => htmlspecialchars($this->input->post('idpel')),
+            ];
+
+            if ($this->ModelPelanggan->tambahTagihan($dataTagihan)) {
+                $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-success" role="alert">Berhasil menambahkan tagihan pada pelanggan</div>');
+                redirect('admin/layanan');
+            } else {
+                $this->session->set_flashdata('message', '<div style="color: #FFF; background: #1f283E;" class="alert alert-danger" role="alert">Gagal menambahkan tagihan pada pelanggan</div>');
+                redirect('admin/tagihan/' . $id);
+            }
+        }
+    }
+
+
+    public function get_bulan_tahun($id_penggunaan)
+    {
+        $this->db->select('bulan, tahun');
+        $this->db->from('penggunaan');
+        $this->db->where('id_penggunaan', $id_penggunaan);
+        $result = $this->db->get()->row_array();
+
+        if ($result) {
+            echo json_encode([
+                'bulan' => $result['bulan'],
+                'tahun' => $result['tahun']
+            ]);
+        } else {
+            echo json_encode([
+                'bulan' => '',
+                'tahun' => ''
+            ]);
+        }
+    }
+
+    public function get_meter($id_penggunaan)
+    {
+        $this->db->select('meter_awal, meter_akhir');
+        $this->db->from('penggunaan');
+        $this->db->where('id_penggunaan', $id_penggunaan);
+        $result = $this->db->get()->row_array();
+
+        if ($result) {
+            echo json_encode([
+                'meter_awal' => $result['meter_awal'],
+                'meter_akhir' => $result['meter_akhir']
+            ]);
+        } else {
+            echo json_encode([
+                'meter_awal' => '',
+                'meter_akhir' => ''
+            ]);
+        }
     }
 }
