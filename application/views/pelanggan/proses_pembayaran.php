@@ -25,6 +25,13 @@
                                         value="<?= $nama_pelanggan['nama_pelanggan'] ?>" readonly>
                                     <?= form_error('nama', '<small class="text-danger">', '</small>'); ?>
                                 </div>
+                                <div class="form-group" hidden>
+                                    <label for="idpel">ID Pelanggan</label>
+                                    <input type="text" class="form-control" id="idpel" name="idpel"
+                                        value="<?= isset($tagihan['id_pelanggan']) ? $tagihan['id_pelanggan'] : 'ID tagihan tidak ditemukan'; ?>"
+                                        readonly>
+                                    <?= form_error('idpel', '<small class="text-danger">', '</small>'); ?>
+                                </div>
                                 <div class="form-group">
                                     <label for="id_tagihan">ID Tagihan</label>
                                     <input type="text" class="form-control" id="id_tagihan" name="id_tagihan"
