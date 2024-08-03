@@ -62,7 +62,7 @@ class Layanan extends CI_Controller
         pre($result);
         return $result;
     }
-    public function serch()
+    public function search()
     {
         $data['pelanggan'] = [];
         $data['id'] = '';
@@ -113,15 +113,44 @@ class Layanan extends CI_Controller
 
     public function bayar()
     {
+        $id_tagihan         = htmlspecialchars($this->input->post('id_tagihan'));
+        $id_pelanggan       = htmlspecialchars($this->input->post('idpel'));
+        $tanggal_pembayaran = date('Y-m-d');
+        $bulan_bayar        = htmlspecialchars($this->input->post('bulan'));
+        $biaya_admin        = htmlspecialchars($this->input->post('badmin'));
+        $total_bayar        = htmlspecialchars($this->input->post('total'));
+        $id_user            = 1;
+
+        $total_bayar = str_replace(['Rp', ',', ' '], '', $total_bayar);
+
         $dataPembayaran = [
             'id_pembayaran'       => random_string('basic', 16),
-            'id_tagihan'          => htmlspecialchars($this->input->post('id_tagihan')),
-            'id_pelanggan'        => htmlspecialchars($this->input->post('idpel')),
-            'tanggal_pembayaran'  => date('Y-m-d'),
-            'bulan_bayar'         => htmlspecialchars($this->input->post('bulan')),
-            'biaya_admin'         => htmlspecialchars($this->input->post('badmin')),
-            'total_bayar'         => htmlspecialchars($this->input->post('total')),
-            'id_user'             => 1,
+            'id_tagihan'          => $id_tagihan,
+            'id_pelanggan'        => $id_pelanggan,
+            'tanggal_pembayaran'  => $tanggal_pembayaran,
+            'bulan_bayar'         => $bulan_bayar,
+            'biaya_admin'         => $biaya_admin,
+            'total_bayar'         => $total_bayar,
+            'id_user'             => $id_user,
         ];
+
+        $this->db->insert('pembayaran', $dataPembayaran);
+
+        $tagihan = $this->ModelPelanggan->getTagihan($id_tagihan);
+        if ($tagihan) {
+            $id_penggunaan = $tagihan['id_penggunaan'];
+
+            $dataUpdate = [
+                'status' => 'Lunas'
+            ];
+
+            $this->db->where('id_tagihan', $id_tagihan);
+            $this->db->update('tagihan', $dataUpdate);
+
+            $this->db->where('id_penggunaan', $id_penggunaan);
+            $this->db->delete('penggunaan');
+        }
+
+        redirect('layanan');
     }
 }
