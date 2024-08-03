@@ -49,6 +49,55 @@ class ModelPelanggan extends CI_Model
         $query = $this->db->get();
         return $query->row_array();
     }
+
+    public function getNamaPelanggan($id_tagihan)
+    {
+        $this->db->select('tagihan.*, pelanggan.nama_pelanggan');
+        $this->db->from('tagihan');
+        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = tagihan.id_pelanggan');
+        $this->db->where('tagihan.id_tagihan', $id_tagihan);
+        return $this->db->get()->row_array();
+    }
+
+    public function getTarif($id_tagihan)
+    {
+        $this->db->select('tagihan.*, pelanggan.id_tarif');
+        $this->db->from('tagihan');
+        $this->db->join('pelanggan', 'pelanggan.id_pelanggan = tagihan.id_pelanggan');
+        $this->db->where('tagihan.id_tagihan', $id_tagihan);
+        return $this->db->get()->row_array();
+    }
+
+    public function getTagihan($id_tagihan)
+    {
+        $this->db->select('tagihan.*, penggunaan.meter_awal, penggunaan.meter_akhir');
+        $this->db->from('tagihan');
+        $this->db->join('penggunaan', 'penggunaan.id_penggunaan = tagihan.id_penggunaan');
+        $this->db->where('tagihan.id_tagihan', $id_tagihan);
+        return $this->db->get()->row_array();
+    }
+
+    public function getTarifByIdPelanggan($id_pelanggan)
+    {
+        $this->db->select('tarif.tarifperkwh');
+        $this->db->from('tarif');
+        $this->db->join('pelanggan', 'pelanggan.id_tarif = tarif.id_tarif');
+        $this->db->where('pelanggan.id_pelanggan', $id_pelanggan);
+        return $this->db->get()->row_array();
+    }
+
+    public function calculateTotalCost($id_tagihan)
+    {
+        $tagihan = $this->getTagihan($id_tagihan);
+        $tarif = $this->getTarifByIdPelanggan($tagihan['id_pelanggan']);
+
+        if ($tagihan && $tarif) {
+            $usage = $tagihan['meter_akhir'] - $tagihan['meter_awal'];
+            $totalCost = $usage * $tarif['tarifperkwh'] + 2500;
+            return $totalCost;
+        }
+        return 0;
+    }
     public function getTagihanByPelanggan($id_pelanggan)
     {
         $this->db->select('tagihan.*, penggunaan.meter_awal, penggunaan.meter_akhir, pelanggan.nama_pelanggan');

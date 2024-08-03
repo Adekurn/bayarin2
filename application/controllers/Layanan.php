@@ -15,8 +15,8 @@ class Layanan extends CI_Controller
         $data = [
             'judul' => 'Layanan'
         ];
-        $data['pelanggan'] = $this->ModelPelanggan->getpelanggan()->result_array();
 
+        $data['pelanggan'] = $this->ModelPelanggan->getpelanggan()->result_array();
 
         $this->load->view('pelanggan/pelanggan_header', $data);
         $this->load->view('pelanggan/pelanggan_topbar', $data);
@@ -90,19 +90,37 @@ class Layanan extends CI_Controller
         $this->load->view('pelanggan/pelanggan_footer', $data);
     }
 
-    public function bayar($id_tagihan)
+    public function proses_pembayaran($id_tagihan)
     {
-        $tagihan = $this->ModelPelanggan->getTagihanByPelanggan($id_tagihan);
+        $tagihan = $this->ModelPelanggan->getTagihan($id_tagihan);
+        $totalCost = $this->ModelPelanggan->calculateTotalCost($id_tagihan);
 
         $data = [
-            'judul'     => 'Pembayaran',
-            'tagihan'   => $tagihan,
-            'pelanggan' => $tagihan ? $tagihan[0] : null
+            'judul'          => 'Pembayaran',
+            'tagihan'        => $tagihan,
+            'total_cost'     => $totalCost,
+            'nama_pelanggan' => $this->ModelPelanggan->getNamaPelanggan($id_tagihan),
+            'pelanggan'      => $this->ModelPelanggan->getTagihanByPelanggan($id_tagihan),
+            'id_tarif'       => $this->ModelPelanggan->getTarif($id_tagihan)
         ];
 
         $this->load->view('pelanggan/pelanggan_header', $data);
         $this->load->view('pelanggan/pelanggan_topbar', $data);
-        $this->load->view('pelanggan/bayar', $data);
+        $this->load->view('pelanggan/proses_pembayaran', $data);
         $this->load->view('pelanggan/pelanggan_footer', $data);
+    }
+
+    public function bayar()
+    {
+        $dataPembayaran = [
+            'id_pembayaran'       => random_string('basic', 16),
+            'id_tagihan'          => htmlspecialchars($this->input->post('id_tagihan')),
+            'id_pelanggan'        => htmlspecialchars($this->input->post('idpel')),
+            'tanggal_pembayaran'  => date('Y-m-d'),
+            'bulan_bayar'         => htmlspecialchars($this->input->post('bulan')),
+            'biaya_admin'         => htmlspecialchars($this->input->post('badmin')),
+            'total_bayar'         => htmlspecialchars($this->input->post('total')),
+            'id_user'             => 1,
+        ];
     }
 }
