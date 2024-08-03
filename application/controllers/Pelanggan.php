@@ -5,7 +5,9 @@ class Pelanggan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->helper('string');
+        $this->load->helper(['string', 'global_helper']);
+        $this->load->library('session');
+        $this->load->database();
     }
 
     public function index()
@@ -129,5 +131,16 @@ class Pelanggan extends CI_Controller
         $this->load->view('pelanggan/pelanggan_header', $data);
         $this->load->view('pelanggan/profil', $data);
         $this->load->view('pelanggan/pelanggan_footer');
+    }
+    public function logout()
+    {
+        $this->session->unset_userdata('id_pelanggan');
+        $this->session->unset_userdata('username');
+        $this->session->unset_userdata('nama');
+        $this->session->unset_userdata('nama_pelanggan');
+        $this->session->unset_userdata('nomor_kwh');
+
+        $this->session->set_flashdata('pesan', '<div class="alert alert-success" role="alert">Anda telah logout</div>');
+        redirect('pelanggan');
     }
 }

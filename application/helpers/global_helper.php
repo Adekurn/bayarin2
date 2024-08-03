@@ -5,11 +5,12 @@ if (!function_exists('check_login')) {
     function check_login()
     {
         $ci = &get_instance();
+        $ci->load->library('session');
 
-        if ($ci->session->userdata('email') == FALSE) {
+        if ($ci->session->userdata('username') == FALSE) {
             $ci->session->set_userdata('session_login', current_url());
             $ci->session->set_flashdata('message', 'Harap login terlebih dahulu');
-            redirect('Autentifikasi');
+            redirect('pelanggan');
         }
     }
 }

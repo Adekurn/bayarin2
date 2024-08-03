@@ -39,9 +39,9 @@
             <span>Manajemen Pembayaran</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link pb-0" href="<?= base_url('admin/pembayaran'); ?>">
+        <a class="nav-link pb-0" href="<?= base_url('admin/tampil_tarif'); ?>">
             <i class="fa fa-fw fa-money-bill"></i>
-            <span>Manajemen </span></a>
+            <span>Pengaturan Tarif</span></a>
     </li>
     <!-- Nav Item - Utilities Collapse Menu -->
     <!-- <li class="nav-item">

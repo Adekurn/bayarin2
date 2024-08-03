@@ -5,6 +5,8 @@ class Layanan extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('global_helper');
+        check_login();
         $this->load->helper('string');
         $this->load->model('ModelLayanan');
         $this->load->model('ModelTagihan');

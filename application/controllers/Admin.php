@@ -8,7 +8,7 @@ class Admin extends CI_Controller
         // check_login();
         $this->load->model('ModelAdmin');
         $this->load->model('ModelPelanggan');
-        // $this->load->model('ModelPemesanan');
+        $this->load->model('ModelTarif');
         $this->load->helper('string');
     }
     public function index()
@@ -274,6 +274,38 @@ class Admin extends CI_Controller
         // Load views
         $this->load->view('template/admin/admin_header', $data);
         $this->load->view('template/admin/pembayaran', $data); // Update this view to handle the data
+        $this->load->view('template/admin/admin_footer');
+    }
+    public function form_tambah_tarif()
+    {
+        $data['judul'] = 'Tambah Tarif';
+        $this->load->view('template/admin/admin_header', $data);
+        $this->load->view('template/admin/form_tambah_tarif', $data);
+        $this->load->view('template/admin/admin_footer');
+    }
+    public function tambah_tarif()
+    {
+        $data = [
+            'id_tarif'    => htmlspecialchars($this->input->post('id_tarif')),
+            'daya'        => htmlspecialchars($this->input->post('daya')),
+            'tarifperkwh' => htmlspecialchars($this->input->post('tarifperkwh')),
+        ];
+
+        $this->ModelTarif->tambahTarif($data);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data tarif berhasil ditambahkan.</div>');
+        redirect('admin/tampil_tarif');
+    }
+    // Fungsi untuk menampilkan tarif
+    public function tampil_tarif()
+    {
+        $data = [
+            'judul' => 'Data Tarif',
+            'tarif' => $this->ModelTarif->getTarif()
+        ];
+
+        $this->load->view('template/admin/admin_header', $data);
+        $this->load->view('template/admin/tarif', $data);
         $this->load->view('template/admin/admin_footer');
     }
 }
