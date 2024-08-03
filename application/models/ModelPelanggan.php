@@ -5,7 +5,13 @@ class ModelPelanggan extends CI_Model
     var $table = 'pelanggan';
     public function getpelanggan()
     {
-        return $this->db->get($this->table);
+        $this->db->select('p.id_pelanggan, p.username, p.nomor_kwh, p.nama_pelanggan, p.alamat, 
+                           pg.bulan, pg.meter_awal, pg.meter_akhir, 
+                           (pg.meter_akhir - pg.meter_awal) AS jumlah_meter');
+        $this->db->from('pelanggan p');
+        $this->db->join('penggunaan pg', 'p.id_pelanggan = pg.id_pelanggan', 'left');
+        $this->db->order_by('p.id_pelanggan', 'ASC');
+        return $this->db->get();
     }
 
     public function tambahPelanggan($data)

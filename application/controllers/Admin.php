@@ -158,7 +158,7 @@ class Admin extends CI_Controller
     {
         $data = [
             'judul' => 'Manajemen Penggunaan',
-            'pelanggan' => $this->ModelPelanggan->getpelanggan()->result_array(),
+            'penggunaan' => $this->ModelPelanggan->getpelanggan()->result_array(),
         ];
 
         $this->load->view('template/admin/admin_header', $data);
@@ -252,5 +252,28 @@ class Admin extends CI_Controller
                 'meter_akhir' => ''
             ]);
         }
+    }
+    // public function pembayaran_list()
+    // {
+    //     $this->load->model('ModelTagihan');
+    //     $data['pembayaran'] = $this->ModelTagihan->get_pembayaran_list();
+    //     $data['judul'] = 'Data Pembayaran Listrik';
+    //     $this->load->view('admin/pembayaran_list', $data);
+    // }
+
+
+    public function pembayaran()
+    {
+        // Load model
+        $this->load->model('ModelTagihan');
+
+        // Retrieve data
+        $data['pembayaran'] = $this->ModelTagihan->get_pembayaran_list();
+        $data['judul'] = 'Manajemen Pembayaran';
+
+        // Load views
+        $this->load->view('template/admin/admin_header', $data);
+        $this->load->view('template/admin/pembayaran', $data); // Update this view to handle the data
+        $this->load->view('template/admin/admin_footer');
     }
 }

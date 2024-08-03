@@ -19,7 +19,7 @@
         <div class="row">
 
             <div class="table-responsive table-bordered col-sm-12 ml-auto mr-auto mt-2 text-center">
-                <h4 class="mt-3 text-primary"> <i> Data Pelanggan Listrik </i> </h4>
+                <h4 class="mt-3 text-primary"> <i> Data Tagihan Listrik </i> </h4>
                 <table class="table mt-3">
                     <thead>
                         <tr>
@@ -34,28 +34,27 @@
                     </thead>
                     <tbody>
                         <?php if (!empty($pelanggan)) { ?>
-                        <?php
+                            <?php
                             $i = 1;
                             foreach ($pelanggan as $a) { ?>
-                        <tr>
-                            <td><?= $i++; ?></td>
-                            <td><?= htmlspecialchars($a['id_pelanggan']); ?></td>
-                            <td><?= htmlspecialchars($a['username']); ?></td>
-                            <td><?= htmlspecialchars($a['nomor_kwh']); ?></td>
-                            <td><?= htmlspecialchars($a['nama_pelanggan']); ?></td>
-                            <td><?= htmlspecialchars($a['alamat']); ?></td>
-                            <td>
-                                <a href="<?= base_url('admin/buat_tagihan/' . $a['id_pelanggan']); ?>"
-                                    class="btn btn-success btn-sm">
-                                    <i style="color: #000;" class="fa-solid fa-plus"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        <?php } ?>
+                                <tr>
+                                    <td><?= $i++; ?></td>
+                                    <td><?= htmlspecialchars($a['id_pelanggan']); ?></td>
+                                    <td><?= htmlspecialchars($a['username']); ?></td>
+                                    <td><?= htmlspecialchars($a['nomor_kwh']); ?></td>
+                                    <td><?= htmlspecialchars($a['nama_pelanggan']); ?></td>
+                                    <td><?= htmlspecialchars($a['alamat']); ?></td>
+                                    <td>
+                                        <a href="<?= base_url('admin/buat_tagihan/' . $a['id_pelanggan']); ?>" class="btn btn-success btn-sm">
+                                            <i style="color: #000;" class="fa-solid fa-plus"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php } ?>
                         <?php } else { ?>
-                        <tr>
-                            <td colspan="6">Tidak ada data ditemukan.</td>
-                        </tr>
+                            <tr>
+                                <td colspan="6">Tidak ada data ditemukan.</td>
+                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>

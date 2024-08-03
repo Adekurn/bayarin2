@@ -34,9 +34,14 @@
             <span>Manajemen Tagihan</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link pb-0" href="<?= base_url('admin/tagihan'); ?>">
+        <a class="nav-link pb-0" href="<?= base_url('admin/pembayaran'); ?>">
             <i class="fa fa-fw fa-money-bill"></i>
             <span>Manajemen Pembayaran</span></a>
+    </li>
+    <li class="nav-item active">
+        <a class="nav-link pb-0" href="<?= base_url('admin/pembayaran'); ?>">
+            <i class="fa fa-fw fa-money-bill"></i>
+            <span>Manajemen </span></a>
     </li>
     <!-- Nav Item - Utilities Collapse Menu -->
     <!-- <li class="nav-item">

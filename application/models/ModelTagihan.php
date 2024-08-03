@@ -20,4 +20,16 @@ class ModelTagihan extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+    public function get_pembayaran_list()
+    {
+        $this->db->select('p.id_pelanggan, p.username, p.nomor_kwh, p.nama_pelanggan, p.alamat, 
+                       t.bulan AS bulan_tagihan, 
+                       IF(py.tanggal_pembayaran IS NOT NULL, "Lunas", "Belum Bayar") AS status_bayar');
+        $this->db->from('pelanggan p');
+        $this->db->join('tagihan t', 'p.id_pelanggan = t.id_pelanggan', 'left');
+        $this->db->join('pembayaran py', 't.id_tagihan = py.id_tagihan', 'left');
+        $this->db->group_by('p.id_pelanggan, t.bulan');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
