@@ -6,6 +6,13 @@
     <!-- Begin Page Content -->
     <div class="container-fluid">
 
+        <!-- Display Success Message -->
+        <?php if ($this->session->flashdata('success')) : ?>
+            <div class="alert alert-success">
+                <?= $this->session->flashdata('success'); ?>
+            </div>
+        <?php endif; ?>
+
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4 nav-item active">
             <a class="btn btn-sm btn-primary mb-0 text-light nav-link" href="<?= base_url('Layanan'); ?>"> Pergi ke Layanan </a>
@@ -94,7 +101,6 @@
                 </div>
             </div>
         </div>
-
 
     </div>
     <!-- /.container-fluid -->

@@ -6,37 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $judul ?></title>
     <style>
-    body {
-        background-image: url('<?php echo base_url('assets/img/bg-pln.jpg'); ?>');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: Arial, sans-serif;
-    }
+        body {
+            background-image: url('<?php echo base_url('assets/img/bg-pln.jpg'); ?>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
 
-    .container {
-        text-align: center;
-        max-width: 100%;
-        display: grid;
-        place-items: center;
-        height: 100vh;
-        /* Atur sesuai kebutuhan */
-    }
+        .container {
+            text-align: center;
+            max-width: 100%;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            /* Atur sesuai kebutuhan */
+        }
 
-    .card {
-        background-color: rgba(255, 255, 255, 0.85);
-        /* Transparansi pada card */
-    }
+        .card {
+            background-color: rgba(255, 255, 255, 0.85);
+            /* Transparansi pada card */
+        }
 
-    .btn {
-        place-items: center;
-        display: inline-block;
-    }
+        .btn {
+            place-items: center;
+            display: inline-block;
+        }
     </style>
     <!-- Load CSS lainnya jika diperlukan -->
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>">
@@ -62,14 +62,11 @@
                                         <?= $this->session->flashdata('pesan'); ?>
                                         <form class="user" method="post" action="<?= base_url('pelanggan'); ?>">
                                             <div class="form-group mb-3">
-                                                <input type="text" class="form-control form-control-user"
-                                                    value="<?= set_value('username'); ?>" id="username"
-                                                    placeholder="Username" name="username">
+                                                <input type="text" class="form-control form-control-user" value="<?= set_value('username'); ?>" id="username" placeholder="Username" name="username">
                                                 <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
                                             <div class="form-group mb-3">
-                                                <input type="password" class="form-control form-control-user"
-                                                    id="password" placeholder="Password" name="password">
+                                                <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password">
                                                 <?= form_error(
                                                     'password',
                                                     '<small class="text-danger pl-3">',
@@ -83,10 +80,6 @@
                                             </div>
                                         </form>
                                         <hr>
-                                        <div class="text-center">
-                                            <a class="small" href="<?= base_url('pelanggan/register'); ?>">Register
-                                                Sekarang</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

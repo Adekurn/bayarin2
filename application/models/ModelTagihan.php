@@ -22,7 +22,7 @@ class ModelTagihan extends CI_Model
     }
     public function get_pembayaran_list()
     {
-        $this->db->select('p.id_pelanggan, p.username, p.nomor_kwh, p.nama_pelanggan, p.alamat, 
+        $this->db->select('py.id_pembayaran, p.id_pelanggan, p.username, p.nomor_kwh, p.nama_pelanggan, p.alamat, 
                        t.bulan AS bulan_tagihan, 
                        IF(py.tanggal_pembayaran IS NOT NULL, "Lunas", "Belum Bayar") AS status_bayar');
         $this->db->from('pelanggan p');
@@ -31,5 +31,19 @@ class ModelTagihan extends CI_Model
         $this->db->group_by('p.id_pelanggan, t.bulan');
         $query = $this->db->get();
         return $query->result_array();
+    }
+    public function delete_tagihan_by_pembayaran($id_pembayaran)
+    {
+        // Ambil ID tagihan terkait berdasarkan ID pembayaran
+        $this->db->select('tagihan.id_tagihan');
+        $this->db->from('tagihan');
+        $this->db->join('pembayaran', 'tagihan.id_tagihan = pembayaran.id_tagihan', 'inner');
+        $this->db->where('pembayaran.id_pembayaran', $id_pembayaran);
+        $tagihan = $this->db->get()->result_array();
+
+        // Hapus tagihan dan data terkait
+        foreach ($tagihan as $t) {
+            $this->db->delete('tagihan', ['id_tagihan' => $t['id_tagihan']]);
+        }
     }
 }

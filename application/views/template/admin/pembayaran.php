@@ -30,6 +30,7 @@
                             <th>Bulan</th>
                             <th>Alamat</th>
                             <th>Status Bayar</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,11 +48,14 @@
                                     <td>
                                         <?= htmlspecialchars($b['status_bayar']); ?>
                                     </td>
+                                    <td>
+                                        <a href="<?= base_url('admin/delete/' . $b['id_pembayaran']); ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?');">Hapus</a>
+                                    </td>
                                 </tr>
                             <?php } ?>
                         <?php } else { ?>
                             <tr>
-                                <td colspan="7">Tidak ada data ditemukan.</td>
+                                <td colspan="8">Tidak ada data ditemukan.</td>
                             </tr>
                         <?php } ?>
                     </tbody>

@@ -153,6 +153,7 @@ class Layanan extends CI_Controller
             $this->db->delete('penggunaan');
         }
 
-        redirect('layanan');
+        $this->session->set_flashdata('success', 'Pembayaran Sukses Terima Kasih');
+        redirect('pelanggan/dashboard');
     }
 }

@@ -9,6 +9,8 @@ class Admin extends CI_Controller
         $this->load->model('ModelAdmin');
         $this->load->model('ModelPelanggan');
         $this->load->model('ModelTarif');
+        $this->load->model('ModelPembayaran');
+        $this->load->model('ModelTagihan');
         $this->load->helper('string');
     }
     public function index()
@@ -307,5 +309,31 @@ class Admin extends CI_Controller
         $this->load->view('template/admin/admin_header', $data);
         $this->load->view('template/admin/tarif', $data);
         $this->load->view('template/admin/admin_footer');
+    }
+    public function delete($id_pembayaran)
+    {
+        // Load model untuk tagihan dan pembayaran
+        $this->load->model('ModelTagihan');
+        $this->load->model('ModelLayanan');
+
+        // Ambil data pembayaran
+        $pembayaran = $this->db->get_where('pembayaran', ['id_pembayaran' => $id_pembayaran])->row_array();
+
+        if ($pembayaran) {
+            // Hapus data tagihan terkait
+            $this->ModelTagihan->delete_tagihan_by_pembayaran($id_pembayaran);
+
+            // Hapus data pembayaran
+            $this->db->delete('pembayaran', ['id_pembayaran' => $id_pembayaran]);
+
+            // Set flashdata untuk pesan sukses
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pembayaran dan tagihan terkait berhasil dihapus.</div>');
+        } else {
+            // Set flashdata untuk pesan error
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data pembayaran gagal dihapus.</div>');
+        }
+
+        // Redirect kembali ke halaman pembayaran
+        redirect('admin/pembayaran');
     }
 }

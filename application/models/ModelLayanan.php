@@ -34,4 +34,18 @@ class ModelLayanan extends CI_Model
         $query = $this->db->get('penggunaan');
         return $query->row_array();
     }
+    public function delete_penggunaan_by_tagihan($id_tagihan)
+    {
+        // Mengambil id_penggunaan berdasarkan id_tagihan
+        $this->db->select('id_penggunaan');
+        $this->db->from('tagihan');
+        $this->db->where('id_tagihan', $id_tagihan);
+        $query = $this->db->get();
+        $id_penggunaan = $query->row()->id_penggunaan;
+
+        // Hapus dari tabel penggunaan
+        $this->db->delete($this->table, ['id_penggunaan' => $id_penggunaan]);
+
+        return $this->db->affected_rows() > 0;
+    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman Login</title>
+    <title><?= $judul ?></title>
     <style>
         body {
             background-image: url('<?php echo base_url('assets/img/bg-pln.jpg'); ?>');
@@ -47,7 +47,7 @@
         <section class="login">
             <!-- Outer Row -->
             <div class="row justify-content-center">
-                <div class="col-lg-7">
+                <div class="col-lg-12">
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
@@ -55,21 +55,17 @@
                                 <div class="col-lg">
                                     <div class="p-5">
                                         <div class="text-center">
-                                            <h1 class="h4 text-gray-900 mb-4"><b>Halaman Login admin !</b><br>
-                                                <small>Aplikasi Pembayaran Listrik</small></br>
+                                            <h1 class="h4 text-gray-900 mb-4"><b>Halaman Login Admin</b><br>
+                                                <small>Aplikasi Pembayaran Listrik</small>
                                             </h1>
                                         </div>
                                         <?= $this->session->flashdata('pesan'); ?>
                                         <form class="user" method="post" action="<?= base_url('autentifikasi'); ?>">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control form-control-user" value="<?= set_value('username'); ?>" id="username" placeholder="Masukkan username" name="username">
-                                                <?= form_error(
-                                                    'username',
-                                                    '<small class="text-danger pl-3">',
-                                                    '</small>'
-                                                ); ?>
+                                            <div class="form-group mb-3">
+                                                <input type="text" class="form-control form-control-user" value="<?= set_value('username'); ?>" id="username" placeholder="Username" name="username">
+                                                <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                             </div>
-                                            <div class="form-group">
+                                            <div class="form-group mb-3">
                                                 <input type="password" class="form-control form-control-user" id="password" placeholder="Password" name="password">
                                                 <?= form_error(
                                                     'password',
@@ -84,9 +80,6 @@
                                             </div>
                                         </form>
                                         <hr>
-                                        <div class="text-center">
-                                            <a class="small" href="<?= base_url('autentifikasi/registrasi'); ?>">Daftar Member !</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
