@@ -310,30 +310,27 @@ class Admin extends CI_Controller
         $this->load->view('template/admin/tarif', $data);
         $this->load->view('template/admin/admin_footer');
     }
-    public function delete($id_pembayaran)
+    public function delete($id_pembayaran = null)
     {
-        // Load model untuk tagihan dan pembayaran
-        $this->load->model('ModelTagihan');
-        $this->load->model('ModelLayanan');
-
-        // Ambil data pembayaran
-        $pembayaran = $this->db->get_where('pembayaran', ['id_pembayaran' => $id_pembayaran])->row_array();
-
-        if ($pembayaran) {
-            // Hapus data tagihan terkait
-            $this->ModelTagihan->delete_tagihan_by_pembayaran($id_pembayaran);
-
-            // Hapus data pembayaran
-            $this->db->delete('pembayaran', ['id_pembayaran' => $id_pembayaran]);
-
-            // Set flashdata untuk pesan sukses
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data pembayaran dan tagihan terkait berhasil dihapus.</div>');
-        } else {
-            // Set flashdata untuk pesan error
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data pembayaran gagal dihapus.</div>');
+        if ($id_pembayaran === null) {
+            // Menangani kasus ketika ID tidak diberikan
+            $this->session->set_flashdata('message', 'ID Pembayaran tidak ditemukan.');
+            redirect('admin/pembayaran'); // Redirect kembali ke halaman pembayaran
         }
 
-        // Redirect kembali ke halaman pembayaran
-        redirect('admin/pembayaran');
+        // Panggil model untuk menghapus pembayaran dan tagihan
+        $this->load->model('ModelPembayaran');
+        $this->load->model('ModelTagihan');
+
+        // Hapus dari tabel pembayaran dan tagihan
+        $result = $this->ModelPembayaran->delete_pembayaran_dan_tagihan($id_pembayaran);
+
+        if ($result) {
+            $this->session->set_flashdata('message', 'Pembayaran dan tagihan berhasil dihapus.');
+        } else {
+            $this->session->set_flashdata('message', 'Gagal menghapus pembayaran dan tagihan.');
+        }
+
+        redirect('admin/pembayaran'); // Redirect kembali ke halaman pembayaran
     }
 }

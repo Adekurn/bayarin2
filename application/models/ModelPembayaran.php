@@ -38,18 +38,17 @@ class ModelPembayaran extends CI_Model
     {
         // Mengambil id_tagihan berdasarkan id_pembayaran
         $this->db->select('id_tagihan');
-        $this->db->from($this->table);
+        $this->db->from('pembayaran');
         $this->db->where('id_pembayaran', $id_pembayaran);
         $query = $this->db->get();
         $id_tagihan = $query->row()->id_tagihan;
 
         // Hapus dari tabel pembayaran
-        $this->db->delete($this->table, ['id_pembayaran' => $id_pembayaran]);
+        $this->db->delete('pembayaran', ['id_pembayaran' => $id_pembayaran]);
 
         // Hapus dari tabel tagihan
         $this->db->delete('tagihan', ['id_tagihan' => $id_tagihan]);
 
-        // Kembalikan id_tagihan untuk menghapus penggunaan
-        return $id_tagihan;
+        return $this->db->affected_rows() > 0;
     }
 }

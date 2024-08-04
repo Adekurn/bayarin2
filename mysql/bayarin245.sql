@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2024 at 03:04 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: Aug 01, 2024 at 09:14 AM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.1.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bayarin2`
+-- Database: `bayarin`
 --
 
 -- --------------------------------------------------------
@@ -92,13 +93,13 @@ CREATE TABLE `level` (
 --
 
 CREATE TABLE `pelanggan` (
-  `id_pelanggan` char(16) NOT NULL,
+  `id_pelanggan` int(11) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(256) CHARACTER SET latin1 NOT NULL,
   `nomor_kwh` varchar(50) NOT NULL,
   `nama_pelanggan` varchar(100) NOT NULL,
   `alamat` varchar(255) DEFAULT NULL,
-  `id_tarif` int(11) NOT NULL
+  `id_tarif` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -106,10 +107,7 @@ CREATE TABLE `pelanggan` (
 --
 
 INSERT INTO `pelanggan` (`id_pelanggan`, `username`, `password`, `nomor_kwh`, `nama_pelanggan`, `alamat`, `id_tarif`) VALUES
-('1115636824', 'febrian', '$2y$10$lGWi9XWifINRFo0GL4elyeZCJ8tefuBLWlRYQPQ9njKYNZTd7BF/i', '624232673', 'febrian ekaputra', 'ga tau di mana', 1),
-('2147483647', 'alfihzm', '$2y$10$JdZkOkQ5rTWu5825NhS.R./4ODypgXdOw5oEhQSqpAH3S/1Syv6BW', '430559079114', 'Mohammad Alfi Hamzami', 'Cisauk', 1),
-('308949151', 'adekurniawan', '$2y$10$994ZVb.c8XJcVMXQj6ccguzrvvReYxg0Fyj6qKVx91aZxT5CbqQOS', '1597754155', 'Ade Kurniawan', 'Ciampea', 1),
-('595301279', 'AdeKur', '$2y$10$gTCmPyeAclmpwmC.SvT8KOF35PddUFpdQL/0VR09voLkfRIqC1Ypy', '1977783185', 'Ratri', 'cisauk', 1);
+(2147483647, 'alfihzm', '$2y$10$JdZkOkQ5rTWu5825NhS.R./4ODypgXdOw5oEhQSqpAH3S/1Syv6BW', '430559079114', 'Mohammad Alfi Hamzami', 'Cisauk', 1);
 
 -- --------------------------------------------------------
 
@@ -135,20 +133,12 @@ CREATE TABLE `pembayaran` (
 
 CREATE TABLE `penggunaan` (
   `id_penggunaan` int(11) NOT NULL,
-  `id_pelanggan` char(16) DEFAULT NULL,
+  `id_pelanggan` int(11) DEFAULT NULL,
   `bulan` varchar(20) DEFAULT NULL,
   `tahun` int(11) DEFAULT NULL,
   `meter_awal` int(11) DEFAULT NULL,
   `meter_akhir` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `penggunaan`
---
-
-INSERT INTO `penggunaan` (`id_penggunaan`, `id_pelanggan`, `bulan`, `tahun`, `meter_awal`, `meter_akhir`) VALUES
-(423423424, '2147483647', 'agt', 2024, 5620, 2728),
-(2147483647, '1115636824', 'jul', 2024, 26025, 26910);
 
 -- --------------------------------------------------------
 
@@ -158,21 +148,13 @@ INSERT INTO `penggunaan` (`id_penggunaan`, `id_pelanggan`, `bulan`, `tahun`, `me
 
 CREATE TABLE `tagihan` (
   `id_tagihan` int(11) NOT NULL,
-  `id_penggunaan` char(16) DEFAULT NULL,
+  `id_penggunaan` int(11) DEFAULT NULL,
   `bulan` varchar(20) DEFAULT NULL,
   `tahun` int(11) DEFAULT NULL,
   `jumlah_meter` int(11) DEFAULT NULL,
   `status` varchar(20) DEFAULT NULL,
-  `id_pelanggan` char(16) NOT NULL
+  `id_pelanggan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tagihan`
---
-
-INSERT INTO `tagihan` (`id_tagihan`, `id_penggunaan`, `bulan`, `tahun`, `jumlah_meter`, `status`, `id_pelanggan`) VALUES
-(164237908, '28347324', 'agt', 2024, 67988763, 'Belum Bayar', '2147483647'),
-(2147483647, '2147483647', 'jul', 2024, 147483648, 'tagihan', '11');
 
 -- --------------------------------------------------------
 
@@ -234,7 +216,8 @@ ALTER TABLE `level`
 -- Indexes for table `pelanggan`
 --
 ALTER TABLE `pelanggan`
-  ADD PRIMARY KEY (`id_pelanggan`);
+  ADD PRIMARY KEY (`id_pelanggan`),
+  ADD UNIQUE KEY `id_tarif` (`id_tarif`);
 
 --
 -- Indexes for table `pembayaran`
@@ -293,6 +276,12 @@ ALTER TABLE `level`
   MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pelanggan`
+--
+ALTER TABLE `pelanggan`
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483648;
+
+--
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
@@ -302,13 +291,13 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `penggunaan`
 --
 ALTER TABLE `penggunaan`
-  MODIFY `id_penggunaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483648;
+  MODIFY `id_penggunaan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tagihan`
 --
 ALTER TABLE `tagihan`
-  MODIFY `id_tagihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2147483648;
+  MODIFY `id_tagihan` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tarif`
@@ -331,6 +320,19 @@ ALTER TABLE `user`
 --
 ALTER TABLE `pembayaran`
   ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_tagihan`) REFERENCES `tagihan` (`id_tagihan`);
+
+--
+-- Constraints for table `penggunaan`
+--
+ALTER TABLE `penggunaan`
+  ADD CONSTRAINT `penggunaan_ibfk_1` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`);
+
+--
+-- Constraints for table `tagihan`
+--
+ALTER TABLE `tagihan`
+  ADD CONSTRAINT `tagihan_ibfk_1` FOREIGN KEY (`id_penggunaan`) REFERENCES `penggunaan` (`id_penggunaan`),
+  ADD CONSTRAINT `tagihan_ibfk_2` FOREIGN KEY (`id_pelanggan`) REFERENCES `pelanggan` (`id_pelanggan`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
