@@ -41,7 +41,7 @@ class Layanan extends CI_Controller
             'code'        => 'PLNPOSTPAID',
             'hp'          => $_POST('id'),
             'ref_id'      => $ref_id,
-            'sign'        => md5('085771522432' . '749669a17d2c55989oPJ' . $ref_id)
+            'sign'        => md5('085771522432' . 'Key_id' . $ref_id)
         ];
 
         $curl = curl_init();
